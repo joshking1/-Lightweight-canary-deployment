@@ -1,0 +1,20 @@
+# This Ingress will handle 20% of the traffic for Apache (the canary release).
+# canary-ingress-apache.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apache-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"         # Enable canary traffic splitting
+    nginx.ingress.kubernetes.io/canary-weight: "20"    # 20% of the traffic goes to Apache (canary)
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: apache-service   # Canary Apache service
+            port:
+              number: 80
