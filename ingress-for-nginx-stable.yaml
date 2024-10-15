@@ -1,0 +1,19 @@
+# This Ingress will handle 80% of the traffic for Nginx (the stable release).
+# canary-ingress-nginx.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /     # Optional: rewrite the path to root
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service    # Stable Nginx service
+            port:
+              number: 80
