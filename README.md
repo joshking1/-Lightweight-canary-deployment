@@ -1,1 +1,1 @@
-# -Lightweight-canary-deployment
+# Lightweight-canary-deployment
