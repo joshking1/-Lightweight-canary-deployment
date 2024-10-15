@@ -1,3 +1,16 @@
+# Kubernetes Native Ingress Controller (Nginx Ingress Controller)
+
+Nginx Ingress Controller is a Kubernetes-native solution for managing external access to services within a Kubernetes cluster.
+How it works: It exposes HTTP and HTTPS routes to services, and Nginx manages the actual routing, reverse proxying, SSL termination, etc. 
+You define your routing rules using Kubernetes Ingress resources.
+
+# Why it’s widely used:
+
+Simple to set up and use.
+Great for traditional Layer 7 (HTTP/HTTPS) load balancing.
+Efficient and performant for basic use cases.
+Supports TLS termination and SSL handling.
+
 # Traffic will be routed based on the path / (root) using your cluster's external IP (NodePort or LoadBalancer).
 
 Nginx (Stable) will serve 80% of the traffic.
