@@ -1,0 +1,43 @@
+# Traffic will be routed based on the path / (root) using your cluster's external IP (NodePort or LoadBalancer).
+
+Nginx (Stable) will serve 80% of the traffic.
+Apache (Canary) will receive 20% of the traffic.
+Traffic is split based on the nginx.ingress.kubernetes.io/canary-weight annotation in the Apache Ingress.
+Services for Nginx and Apache:
+
+# Your existing services (nginx-service.yaml and apache-service.yaml) will remain unchanged. 
+# These will be used by the Ingress to route traffic to the appropriate backends.
+
+#Applying the Setup:
+# Apply the Nginx and Apache Deployments:
+
+kubectl apply -f nginx-deployment.yaml
+kubectl apply -f apache-deployment.yaml
+  
+# Apply the Services:
+
+kubectl apply -f nginx-service.yaml
+kubectl apply -f apache-service.yaml
+  
+# Apply the Ingress Resources:
+
+kubectl apply -f canary-ingress-nginx.yaml
+kubectl apply -f canary-ingress-apache.yaml
+  
+# Testing the Canary Deployment:
+# Access your application using the external IP of your cluster (NodePort or LoadBalancer):
+# For example, if you're using NodePort, access the application via http://<node-ip>:<node-port>.
+# If you're using LoadBalancer, access it via the external IP provided by the LoadBalancer service.
+# Traffic distribution:
+
+80% of the traffic will be routed to Nginx.
+20% of the traffic will be routed to Apache.
+
+# Verify the traffic split by checking the response from the two different services (Nginx and Apache). 
+# You can use logging or monitoring tools (e.g., Prometheus, Grafana) to observe how traffic is distributed between the two services.
+
+# Summary:
+# We set up a canary deployment using HTTP traffic without a domain.
+# Traffic is split between Nginx (80%) and Apache (20%).
+# The Ingress resources route traffic based on paths and distribute it using the canary-weight annotation.
+# You can access your application via the IP address of your cluster (NodePort or LoadBalancer).
